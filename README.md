@@ -120,7 +120,7 @@ _Disposes the SpriteAnimation instance, note that the cached atlases remain in c
 ```
 sprite.cache().flush(['animation.json', 'animation-retina.json']);
 ```
-_sprite.cache() returns a instance of the SpriteCache. __NOTE:__ If no parameters are passed the entire cache is flushed._
+_sprite.cache() returns a instance of the SpriteCache. NOTE: If no parameters are passed the entire cache is flushed._
 
 __Paramenters:__
 

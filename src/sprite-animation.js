@@ -30,6 +30,8 @@
 
 } (this, function ($) {
 
+    'use strict';
+
     var SpriteAnimation = function(target, autoAppend) {
 
         var _target = target,

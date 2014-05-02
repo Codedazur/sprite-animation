@@ -29,19 +29,16 @@ As stated the this lib supports a JSON Hash format atlas with multipacking and t
 
 The lib triggers the following events:
 
-```
-sprite-animation:ready 
-```
+`sprite-animation:ready`
+
 _Atlas is loaded and SpriteAnimation is ready_
 
-```
-sprite-animation:animation-done 
-```
+`sprite-animation:animation-done`
+
 _Animation is done playing, the animation name is passed as a argument._
 
-```
-sprite-animation:animation-loop
-```
+`sprite-animation:animation-loop`
+
 _Animation loop is started, the animation name is passed as a argument._
 
 

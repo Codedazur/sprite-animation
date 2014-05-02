@@ -17,16 +17,20 @@
 /*jslint browser: true, nomen: true, devel: true */
 /*global requirejs, define, window, document, $, _, log  */
 
-define([
 
-    // Core
-    'jquery'
+(function (root, factory) {
 
-], function ($) {
+    if (typeof define === 'function' && define.amd) {
+        define(['jquery'], function (b) {
+            return (root.amdWebGlobal = factory(b));
+        });
+    } else {
+        root.amdWebGlobal = factory(root.b);
+    }
 
-    'use strict';
+} (this, function ($) {
 
-    function SpriteAnimation(target, autoAppend) {
+    var SpriteAnimation = function(target, autoAppend) {
 
         var _target = target,
             _eventDispatcher = $('<div></div>'),
@@ -1026,6 +1030,8 @@ define([
         return SpriteCache._instance || new SpriteCache();
     }
 
+
     return SpriteAnimation;
 
-});
+}));
+

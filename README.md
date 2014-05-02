@@ -1,7 +1,7 @@
 #sprite-animation
 ================
 
-**Sprite animation lib for playing atlas animations **
+__Sprite animation lib for playing atlas animations.__
 
 The sprite animation lib uses canvas for displaying the sprite animation.
 

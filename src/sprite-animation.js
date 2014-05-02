@@ -852,6 +852,7 @@ define([
          */
         onLoaded = function () {
             _loaded = true;
+            _isLoading = false;
             dispatchEvent('sprite-cache:loaded');
         }
 

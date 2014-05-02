@@ -1,0 +1,11 @@
+{
+    "name": "sprite-animation",
+    "version": "1.0.0",
+    "main": "lib/sprite-animation.min.js",
+    "ignore": [
+        
+    ],
+    "dependencies": {
+        "jquery": "2.1.0"
+    }
+}

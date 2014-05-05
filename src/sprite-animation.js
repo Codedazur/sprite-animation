@@ -309,7 +309,6 @@
             }
 
             _context = _canvas.getContext('2d');
-
         }
 
 
@@ -497,7 +496,7 @@
                 return (window.devicePixelRatio === undefined && Math.round(window.screen.availWidth / document.documentElement.clientWidth) > 1);
             }
 
-            return (window.devicePixelRatio !== undefined && window.devicePixelRation > 1);
+            return (window.devicePixelRatio !== undefined && window.devicePixelRatio > 1);
         }
 
 

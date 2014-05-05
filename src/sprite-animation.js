@@ -383,9 +383,6 @@
 
             if (_animations[animation]) {
                 if (_ready) {
-                    appendCanvas();
-
-
                     _animations[animation].from = options.from !== undefined ? options.from : 0;
                     _animations[animation].to = options.to !== undefined ? options.to : _animations[animation].frames.length - 1;
                     _animations[animation].loop = options.loop ? options.loop : false;

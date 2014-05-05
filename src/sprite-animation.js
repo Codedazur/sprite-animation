@@ -38,7 +38,6 @@
             _eventDispatcher = $('<div></div>'),
             _autoAppend = autoAppend !== undefined ? autoAppend : true,
             _appended = false,
-            _isRetina = ((window.devicePixelRatio !== undefined && window.devicePixelRation > 1) || (window.devicePixelRation === undefined && Math.round(window.screen.availWidth / document.documentElement.clientWidth) > 1)) ? true : false,
             _canvas,
             _context,
             _canvasSupport = true,
@@ -73,7 +72,8 @@
             removeInterval,
             getFrameNumber,
             clearCanvas,
-            setupLoadedListener;
+            setupLoadedListener,
+            isRetina;
 
 
         /**
@@ -291,7 +291,7 @@
             var dimensions = getMaxSize();
             _canvas = $('<canvas width="' + dimensions.w + '" height="' + dimensions.h + '"></canvas>')[0];
 
-            if (_isRetina) {
+            if (isRetina()) {
                 $(_canvas).css({
                     '-moz-transform': 'scale(0.5, 0.5)',
                     '-ms-transform': 'scale(0.5, 0.5)',
@@ -487,6 +487,20 @@
         }
 
 
+        /**
+         * Detect if is retina display
+         */
+
+        isRetina = function () {
+            //We need to make a exception specially for Microsoft...
+            if (navigator.userAgent.match(/(Windows Phone)/)) {
+                return (window.devicePixelRatio === undefined && Math.round(window.screen.availWidth / document.documentElement.clientWidth) > 1);
+            }
+
+            return (window.devicePixelRatio !== undefined && window.devicePixelRation > 1);
+        }
+
+
 
         /*
          * Public functions
@@ -510,7 +524,7 @@
                 _loaded = false;
                 setupLoadedListener();
 
-                this.cache().load(urls, retinaUrls, _isRetina);
+                this.cache().load(urls, retinaUrls, isRetina());
             },
 
 
@@ -704,7 +718,7 @@
              * @returns {boolean} Retina display
              */
             isRetina: function () {
-                return _isRetina;
+                return isRetina();
             }
 
         }

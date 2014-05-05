@@ -15,7 +15,7 @@
  */
 
 /*jslint browser: true, nomen: true, devel: true */
-/*global requirejs, define, window, document, $, _, log  */
+/*global requirejs, define, window, document, $  */
 
 
 (function (root, factory) {
@@ -414,7 +414,6 @@
          */
 
         setFrame = function () {
-            //log('set')
             if (!_stopped) {
                 if (_currentFrame < _animations[_currentAnimation].frames.length && _currentFrame <= _animations[_currentAnimation].to) {
                     var frameData = _animations[_currentAnimation].frames[_currentFrame],
@@ -422,7 +421,7 @@
                         image = _spriteCache.images()[frameData.image],
                         scale = frameData.scale;
 
-                    //log(image, frame.x, frame.y, frame.w, frame.h, 0, 0, frame.w, frame.h);
+
                     clearCanvas();
                     try {
                         _context.drawImage(image, frame.x, frame.y, frame.w, frame.h, frameData.spriteSourceSize.x / scale, frameData.spriteSourceSize.y / scale, frame.w / scale, frame.h / scale);
@@ -434,7 +433,7 @@
                             }, _ms);
                         }
                     } catch (error) {
-                        log('Error drawing to context', error);
+                        throw new Error('Error drawing to context', error);
                     }
                 } else if (_animations[_currentAnimation].loop) {
                     dispatchEvent('sprite-animation:animation-loop', _currentAnimation);

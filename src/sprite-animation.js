@@ -154,6 +154,7 @@
                 _animations[name] = animation;
                 setupLoadedListener();
             }
+
         }
 
         /**
@@ -272,7 +273,6 @@
             var animation;
 
             _ready = true;
-            createCanvas();
             dispatchEvent('sprite-animation:ready');
 
             for(animation in _animations) {
@@ -383,9 +383,8 @@
 
             if (_animations[animation]) {
                 if (_ready) {
-                    if (!_appended) {
-                        appendCanvas();
-                    }
+                    appendCanvas();
+
 
                     _animations[animation].from = options.from !== undefined ? options.from : 0;
                     _animations[animation].to = options.to !== undefined ? options.to : _animations[animation].frames.length - 1;
@@ -401,6 +400,7 @@
                     setFrame();
 
                 } else {
+
                     _animations[animation].shouldPlay = true;
                     _animations[animation].from = options.from !== undefined ? options.from : undefined;
                     _animations[animation].to = options.to !== undefined ? options.to : undefined;
@@ -421,6 +421,10 @@
                         frame = frameData.frame,
                         image = _spriteCache.images()[frameData.image],
                         scale = frameData.scale;
+
+                    if (!_canvas) {
+                        createCanvas();
+                    }
 
                     clearCanvas();
                     try {
@@ -589,6 +593,7 @@
                             to = undefined;
                         }
                     }
+
 
                     options.loop = loop;
                     options.from = from;
@@ -776,6 +781,7 @@
          */
 
         loadAtlas = function () {
+
             if (_urls.length > 0) {
                 _url = _urls.pop();
                 _isLoading = true;
@@ -997,9 +1003,9 @@
                         url = urls[index];
                         if (_atlases[url] !== undefined && _atlases[url].meta !== undefined) {
                             if (_images[_atlases[url].meta.image] !== undefined) {
-                                _images[_atlases[url].meta.image] = undefined;
+                                delete _images[_atlases[url].meta.image];
                             }
-                            _atlases[url] = undefined;
+                            delete _atlases[url];
                         }
                     }
                 }

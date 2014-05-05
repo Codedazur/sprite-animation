@@ -15,7 +15,7 @@
  */
 
 /*jslint browser: true, nomen: true, devel: true */
-/*global requirejs, define, window, document, $  */
+/*global requirejs, define, window, document, $, _  */
 
 
 (function (root, factory) {
@@ -73,7 +73,8 @@
             getFrameNumber,
             clearCanvas,
             setupLoadedListener,
-            isRetina;
+            isRetina,
+            stop;
 
 
         /**
@@ -421,7 +422,6 @@
                         image = _spriteCache.images()[frameData.image],
                         scale = frameData.scale;
 
-
                     clearCanvas();
                     try {
                         _context.drawImage(image, frame.x, frame.y, frame.w, frame.h, frameData.spriteSourceSize.x / scale, frameData.spriteSourceSize.y / scale, frame.w / scale, frame.h / scale);
@@ -455,6 +455,27 @@
         clearCanvas = function () {
             if (_context) {
                 _context.clearRect(0, 0, _canvas.width, _canvas.height);
+            }
+        }
+
+
+        /**
+         * Stop all animations
+         *
+         * @param clear {boolean} Clear canvas in the process
+         */
+
+        stop = function (clear) {
+            var index;
+
+            _stopped = true;
+
+            if (clear) {
+                clearCanvas();
+            }
+
+            for (index in _animations) {
+                _animations[index].shouldPlay = false;
             }
         }
 
@@ -602,11 +623,7 @@
              */
             stop: function (clear) {
                 if (_canvasSupport) {
-                    _stopped = true;
-
-                    if (clear) {
-                        clearCanvas();
-                    }
+                    stop();
                 }
             },
 
@@ -978,7 +995,7 @@
 
                     for (index in urls) {
                         url = urls[index];
-                        if (_atlases[url] !== undefined) {
+                        if (_atlases[url] !== undefined && _atlases[url].meta !== undefined) {
                             if (_images[_atlases[url].meta.image] !== undefined) {
                                 _images[_atlases[url].meta.image] = undefined;
                             }

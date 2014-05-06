@@ -43,14 +43,15 @@ _Animation loop is started, the animation name is passed as a argument._
 
 ####Instantiation
 ```
-var sprite = new SpriteAnimation(target, true);
+var sprite = new SpriteAnimation(target, true, true);
 ```
 _Create a new instance, first variable is the target, second a boolean if canvas should be auto appended._
 
 __Parameters:__
 
 - __target__: {element} The DOM element
-- __autoAppend__: {boolean} Optional: Auto append the canvas to the DOM element
+- __autoAppend__: {boolean} Optional: Auto append the canvas to the DOM element (Default: true)
+- __ignoreAtlasScale__: {boolean} Optional: Ignore the atlas scale meta (Default: true)
 
 ####Loading the Atlas
 ```

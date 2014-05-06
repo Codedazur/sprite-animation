@@ -32,12 +32,22 @@
 
     'use strict';
 
-    var SpriteAnimation = function(target, autoAppend) {
+    /**
+     * Sprite Animation constructor.
+     *
+     * @param target {element} The DOM element which serves as the canvas container
+     * @param autoAppend {boolean} Default: true, Automatically append to the target
+     * @param ignoreAtlasScale {boolean} Default: true, Ignore the atlas scale meta
+     * @returns {{load: Function, addAnimation: Function, play: Function, setOffset: Function, stop: Function, dispose: Function, setAnimation: Function, frame: Function, on: Function, one: Function, off: Function, cache: Function, canvasSupported: Function, isRetina: Function}}
+     * @constructor
+     */
+    var SpriteAnimation = function(target, autoAppend, ignoreAtlasScale) {
 
         var _target = target,
             _eventDispatcher = $('<div></div>'),
-            _autoAppend = autoAppend !== undefined ? autoAppend : true,
+            _autoAppend = (autoAppend !== undefined && autoAppend !== null) ? autoAppend : true,
             _appended = false,
+            _ignoreAtlasScale = (ignoreAtlasScale !== undefined && ignoreAtlasScale !== null) ? ignoreAtlasScale : true,
             _canvas,
             _context,
             _canvasSupport = true,
@@ -237,14 +247,17 @@
                 },
                 animation,
                 index,
-                frame;
+                frame,
+                scale;
 
             for (animation in _animations) {
                 for (index in _animations[animation].frames) {
                     frame = _animations[animation].frames[index];
                     if (frame.sourceSize.w > maxSize.w && frame.sourceSize.h > maxSize.h) {
-                        maxSize.w = frame.sourceSize.w / frame.scale;
-                        maxSize.h = frame.sourceSize.h / frame.scale;
+                        scale = _ignoreAtlasScale ? 1 : frame.scale;
+
+                        maxSize.w = frame.sourceSize.w / scale;
+                        maxSize.h = frame.sourceSize.h / scale;
                     }
                 }
             }
@@ -290,6 +303,7 @@
 
         createCanvas = function () {
             var dimensions = getMaxSize();
+
             _canvas = $('<canvas width="' + dimensions.w + '" height="' + dimensions.h + '"></canvas>')[0];
 
             if (isRetina()) {
@@ -417,7 +431,7 @@
                     var frameData = _animations[_currentAnimation].frames[_currentFrame],
                         frame = frameData.frame,
                         image = _spriteCache.images()[frameData.image],
-                        scale = frameData.scale;
+                        scale = _ignoreAtlasScale ? 1 : frameData.scale;
 
                     if (!_canvas) {
                         createCanvas();

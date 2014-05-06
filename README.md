@@ -14,7 +14,7 @@ The sprite animation lib uses canvas for displaying the sprite animation.
 - Trim is supported
 - Rotation is NOT supported (yet)
 
-###Dependecies
+###Dependencies
 
 Only has one dependency.
 

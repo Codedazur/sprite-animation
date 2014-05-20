@@ -14,7 +14,7 @@ The sprite animation lib uses canvas for displaying the sprite animation.
 - Trim is supported
 - Rotation is NOT supported (yet)
 
-###Dependecies
+###Dependencies
 
 Only has one dependency.
 
@@ -43,14 +43,15 @@ _Animation loop is started, the animation name is passed as a argument._
 
 ####Instantiation
 ```
-var sprite = new SpriteAnimation(target, true);
+var sprite = new SpriteAnimation(target, true, true);
 ```
 _Create a new instance, first variable is the target, second a boolean if canvas should be auto appended._
 
 __Parameters:__
 
 - __target__: {element} The DOM element
-- __autoAppend__: {boolean} Optional: Auto append the canvas to the DOM element
+- __autoAppend__: {boolean} Optional: Auto append the canvas to the DOM element (Default: true)
+- __ignoreAtlasScale__: {boolean} Optional: Ignore the atlas scale meta (Default: true)
 
 ####Loading the Atlas
 ```
@@ -59,7 +60,7 @@ sprite.load(['animation.json'], ['animation-retina.json']);
 
 _The load function takes at least one string or array with atlas urls. You can pass a second string or array for the retina version of your Atlas. The atlas and image are stored in a shared cache. There is no need to load the same atlas mutliple times over different instances._
 
-__Paramenters:__
+__Parameters:__
 
 - __urls__: {string|array} A Atlas url or list of Atlas urls.
 - __retinaUrls__: {string|array} Optional: A retina Atlas url or list of retina Atlas urls.
@@ -75,7 +76,7 @@ sprite.addAnimation('icon-intro', 'icon-intro_%%.png', '%', 1, 30);
 
 _A single instance can contain multiple animations._
 
-__Paramenters:__
+__Parameters:__
 
 - __animationName__: {string} A unique identifier of the animation
 - __frameName__: {string} The name identifier as defined in the atlas. The % symbol in the example will be replaced by a frame number. The name in the atlas for example is: icon-loop_01.png
@@ -90,7 +91,7 @@ sprite.playAnimation('icon-loop', true, 0, 10);
 ```
 _Start playing the in a loop from frame 0 to 10, you can also use frameNames._
 
-__Paramenters:__
+__Parameters:__
 
 - __animationName__: {string} A unique identifier of the animation.
 - __loop__: {boolean} Optional: Loops the animation.
@@ -104,7 +105,7 @@ sprite.stop(false);
 ```
 _Stops the animation._
 
-__Paramenters:__
+__Parameters:__
 
 - __clear__: {boolean} If true is passed the canvas is cleared after stopping.
 
@@ -122,7 +123,7 @@ sprite.cache().flush(['animation.json', 'animation-retina.json']);
 ```
 _sprite.cache() returns a instance of the SpriteCache. NOTE: If no parameters are passed the entire cache is flushed._
 
-__Paramenters:__
+__Parameters:__
 
 - __urls__: {string|array} Clear specific urls from the cache.
 

@@ -411,7 +411,6 @@
                     setFrame();
 
                 } else {
-
                     _animations[animation].shouldPlay = true;
                     _animations[animation].from = options.from !== undefined ? options.from : undefined;
                     _animations[animation].to = options.to !== undefined ? options.to : undefined;
@@ -484,6 +483,7 @@
             var index;
 
             _stopped = true;
+            _playing = false;
 
             if (clear) {
                 clearCanvas();
@@ -493,6 +493,9 @@
                 _animations[index].shouldPlay = false;
             }
         }
+
+
+
 
 
         /**
@@ -610,6 +613,19 @@
                     options.from = from;
                     options.to = to;
                     playAnimation(animation, options);
+                }
+            },
+
+            /**
+             * Resume a stopped animation
+             */
+            resume: function () {
+                if (_canvasSupport) {
+                    if (_currentAnimation && _animations[_currentAnimation]) {
+                        _stopped = false;
+                        _playing = true;
+                        setFrame();
+                    }
                 }
             },
 
@@ -750,7 +766,21 @@
              */
             isRetina: function () {
                 return isRetina();
-            }
+            },
+
+            /**
+             * Animation is stopped
+             * @returns {boolean}
+             */
+            stopped:  function () {
+                return _stopped;
+            },
+
+            /**
+             * Animation is playing
+             * @returns {boolean}
+             */
+            playing: _playing
 
         }
     }

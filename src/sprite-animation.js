@@ -340,6 +340,9 @@
             if (_offset) {
                 setCanvasOffset();
             }
+
+            dispatchEvent('sprite-animation:canvas-appended');
+            
         }
 
 

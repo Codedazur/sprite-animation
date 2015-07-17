@@ -41,13 +41,14 @@
      * @returns {{load: Function, addAnimation: Function, play: Function, setOffset: Function, stop: Function, dispose: Function, setAnimation: Function, frame: Function, on: Function, one: Function, off: Function, cache: Function, canvasSupported: Function, isRetina: Function}}
      * @constructor
      */
-    var SpriteAnimation = function(target, autoAppend, ignoreAtlasScale) {
+    var SpriteAnimation = function(target, autoAppend, ignoreAtlasScale, ignoreRetina) {
 
         var _target = target,
             _eventDispatcher = $('<div></div>'),
             _autoAppend = (autoAppend !== undefined && autoAppend !== null) ? autoAppend : true,
             _appended = false,
             _ignoreAtlasScale = (ignoreAtlasScale !== undefined && ignoreAtlasScale !== null) ? ignoreAtlasScale : true,
+            _ignoreRetina = (ignoreRetina !== undefined && ignoreRetina !== null) ? ignoreRetina : true,
             _canvas,
             _context,
             _canvasSupport = true,
@@ -532,6 +533,11 @@
          */
 
         isRetina = function () {
+
+            if(_ignoreRetina){
+                return false;
+            }
+
             //We need to make a exception specially for Microsoft...
             if (navigator.userAgent.match(/(Windows Phone)/)) {
                 return (window.devicePixelRatio === undefined && Math.round(window.screen.availWidth / document.documentElement.clientWidth) > 1);

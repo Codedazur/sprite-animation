@@ -789,7 +789,9 @@
              * Animation is playing
              * @returns {boolean}
              */
-            playing: _playing
+            playing: function () {
+                return _playing;
+            }
 
         }
     }
